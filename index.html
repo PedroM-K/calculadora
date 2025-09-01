@@ -9,7 +9,7 @@
 <body>
   <div class="calculator">
     <h2>Calculadora Científica</h2>
-    <input type="text" id="display" disabled placeholder="0">
+    <input type="text" id="display" readonly placeholder="0">
     
     <div class="buttons">
       <!-- Linha 1 -->
@@ -34,6 +34,35 @@
       <button onclick="appendNumber('1')">1</button>
       <button onclick="appendNumber('2')">2</button>
       <button onclick="appendNumber('3')">3</button>
+      <button class="op" onclick="appendOperator('-')">−</button>
+
+      <!-- Linha 5 -->
+      <button onclick="appendNumber('0')">0</button>
+      <button onclick="appendNumber('.')">.</button>
+      <button class="equal" onclick="calculate()">=</button>
+      <button class="op" onclick="appendOperator('+')">+</button>
+
+      <!-- Linha 6 -->
+      <button class="sci" onclick="appendFunction('Math.sqrt(')">√</button>
+      <button class="sci" onclick="appendFunction('Math.pow(')">xʸ</button>
+      <button class="sci" onclick="appendFunction('factorial(')">n!</button>
+      <button class="sci" onclick="appendFunction('Math.log10(')">log</button>
+
+      <!-- Linha 7 -->
+      <button class="sci" onclick="appendFunction('Math.sin(')">sin</button>
+      <button class="sci" onclick="appendFunction('Math.cos(')">cos</button>
+      <button class="sci" onclick="appendFunction('Math.tan(')">tan</button>
+      <button class="sci" onclick="appendFunction('Math.log(')">ln</button>
+
+      <!-- Linha 8 -->
+      <button class="const" onclick="appendNumber('Math.PI')">π</button>
+      <button class="const" onclick="appendNumber('Math.E')">e</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
       <button class="op" onclick="appendOperator('-')">−</button>
 
       <!-- Linha 5 -->
