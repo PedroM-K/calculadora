@@ -1,25 +1,42 @@
-const display = document.getElementById('display');
-const buttons = document.querySelectorAll('button');
-let current = '';
+let display = document.getElementById('display');
 
-buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        const value = button.getAttribute('data-value');
+function appendNumber(num) {
+  display.value += num;
+}
 
-        if(value === 'C') {
-            current = '';
-            display.value = '0';
-        } else if(value === '=') {
-            try {
-                current = eval(current);
-                display.value = current;
-            } catch {
-                display.value = 'Erro';
-                current = '';
-            }
-        } else {
-            current += value;
-            display.value = current;
-        }
-    });
-});
+function appendOperator(op) {
+  display.value += op;
+}
+
+function appendFunction(func) {
+  display.value += func;
+}
+
+function clearDisplay() {
+  display.value = '';
+}
+
+function deleteLast() {
+  display.value = display.value.slice(0, -1);
+}
+
+// Fatorial
+function factorial(n) {
+  if (n < 0) return NaN;
+  if (n === 0 || n === 1) return 1;
+  return n * factorial(n - 1);
+}
+
+// Calcular
+function calculate() {
+  try {
+    let expression = display.value;
+
+    // Substitui "^" por potência
+    expression = expression.replace(/(\d+)\^(\d+)/g, 'Math.pow($1,$2)');
+
+    display.value = eval(expression);
+  } catch {
+    display.value = 'Erro';
+  }
+}
