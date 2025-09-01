@@ -1,136 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora</title>
-<style>
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: linear-gradient(135deg, #80e0d8, #a2d9f9);
-        font-family: Arial, sans-serif;
-    }
-
-    .calculator {
-        background: #fff;
-        border-radius: 20px;
-        padding: 20px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        display: grid;
-        grid-template-rows: auto 1fr;
-        gap: 10px;
-        width: 260px;
-    }
-
-    .display {
-        height: 50px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 10px;
-        font-size: 1.5rem;
-        text-align: right;
-        background: #f7f7f7;
-        overflow-x: auto;
-    }
-
-    .buttons {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-    }
-
-    button {
-        padding: 20px;
-        font-size: 1.2rem;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        transition: 0.1s;
-    }
-
-    button:hover {
-        transform: scale(1.05);
-    }
-
-    .btn-operator {
-        background: #007bff;
-        color: #fff;
-    }
-
-    .btn-equal {
-        background: #28a745;
-        color: #fff;
-        grid-row: span 2;
-    }
-
-    .btn-clear {
-        background: #007bff;
-        color: #fff;
-    }
-
-    .btn-number {
-        background: #f0f0f0;
-    }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Científica</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="calculator">
-    <input type="text" class="display" id="display" value="0" disabled>
+  <div class="calculator">
+    <h2>Calculadora Científica</h2>
+    <input type="text" id="display" disabled placeholder="0">
+    
     <div class="buttons">
-        <button class="btn-clear" onclick="clearDisplay()">C</button>
-        <button class="btn-operator" onclick="appendOperator('/')">/</button>
-        <button class="btn-operator" onclick="appendOperator('*')">*</button>
-        <button class="btn-operator" onclick="appendOperator('-')">-</button>
+      <!-- Linha 1 -->
+      <button class="func" onclick="clearDisplay()">C</button>
+      <button class="func" onclick="deleteLast()">⌫</button>
+      <button class="func" onclick="appendOperator('(')">(</button>
+      <button class="func" onclick="appendOperator(')')">)</button>
 
-        <button class="btn-equal" onclick="calculate()">=</button>
-        <button class="btn-number" onclick="appendNumber('7')">7</button>
-        <button class="btn-number" onclick="appendNumber('8')">8</button>
-        <button class="btn-number" onclick="appendNumber('9')">9</button>
+      <!-- Linha 2 -->
+      <button onclick="appendNumber('7')">7</button>
+      <button onclick="appendNumber('8')">8</button>
+      <button onclick="appendNumber('9')">9</button>
+      <button class="op" onclick="appendOperator('/')">÷</button>
 
-        <button class="btn-operator" onclick="appendOperator('+')">+</button>
-        <button class="btn-number" onclick="appendNumber('4')">4</button>
-        <button class="btn-number" onclick="appendNumber('5')">5</button>
-        <button class="btn-number" onclick="appendNumber('6')">6</button>
+      <!-- Linha 3 -->
+      <button onclick="appendNumber('4')">4</button>
+      <button onclick="appendNumber('5')">5</button>
+      <button onclick="appendNumber('6')">6</button>
+      <button class="op" onclick="appendOperator('*')">×</button>
 
-        <button class="btn-number" onclick="appendNumber('1')">1</button>
-        <button class="btn-number" onclick="appendNumber('2')">2</button>
-        <button class="btn-number" onclick="appendNumber('3')">3</button>
-        <button class="btn-number" onclick="appendNumber('0')">0</button>
+      <!-- Linha 4 -->
+      <button onclick="appendNumber('1')">1</button>
+      <button onclick="appendNumber('2')">2</button>
+      <button onclick="appendNumber('3')">3</button>
+      <button class="op" onclick="appendOperator('-')">−</button>
 
-        <button class="btn-number" onclick="appendNumber('.')">.</button>
+      <!-- Linha 5 -->
+      <button onclick="appendNumber('0')">0</button>
+      <button onclick="appendNumber('.')">.</button>
+      <button class="equal" onclick="calculate()">=</button>
+      <button class="op" onclick="appendOperator('+')">+</button>
+
+      <!-- Linha 6 - Funções -->
+      <button class="sci" onclick="appendFunction('Math.sqrt(')">√</button>
+      <button class="sci" onclick="appendFunction('Math.pow(')">xʸ</button>
+      <button class="sci" onclick="appendFunction('factorial(')">n!</button>
+      <button class="sci" onclick="appendFunction('Math.log10(')">log</button>
+
+      <!-- Linha 7 - Trigonometria -->
+      <button class="sci" onclick="appendFunction('Math.sin(')">sin</button>
+      <button class="sci" onclick="appendFunction('Math.cos(')">cos</button>
+      <button class="sci" onclick="appendFunction('Math.tan(')">tan</button>
+      <button class="sci" onclick="appendFunction('Math.log(')">ln</button>
+
+      <!-- Linha 8 - Constantes -->
+      <button class="const" onclick="appendNumber('Math.PI')">π</button>
+      <button class="const" onclick="appendNumber('Math.E')">e</button>
     </div>
-</div>
-
-<script>
-let display = document.getElementById('display');
-
-function appendNumber(num) {
-    if(display.value === "0" && num !== ".") {
-        display.value = num;
-    } else {
-        display.value += num;
-    }
-}
-
-function appendOperator(op) {
-    display.value += op;
-}
-
-function clearDisplay() {
-    display.value = "0";
-}
-
-function calculate() {
-    try {
-        display.value = eval(display.value);
-    } catch (e) {
-        display.value = "Erro";
-    }
-}
-</script>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
